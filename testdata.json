@@ -1,0 +1,8 @@
+{
+    "datatype": "list",
+    "name": "hoge1",
+    "TCP": true,
+    "ip": "172.35.0.1",
+    "cport": 22,
+    "lport": 5028
+}

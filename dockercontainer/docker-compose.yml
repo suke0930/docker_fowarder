@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  ubuntu:
+    build:
+      context: ./docker
+    container_name: ubuntu_macvlan
+    #command: [ "tail", "-F", "/dev/null" ]
+    volumes:
+      - ./sleep:/home/nonroot/
+      - ./lib:/lib/
+    networks:
+      macvlan_network:
+        ipv4_address: 192.168.0.60 # 重複しないIPアドレスを指定
+      bridge_network: {}
+
+networks:
+  macvlan_network:
+    driver: macvlan
+    driver_opts:
+      parent: enp1s0 # ホストのネットワークインターフェース名を指定
+    ipam:
+      config:
+        - subnet: 192.168.0.0/24
+          gateway: 192.168.0.1 # ホストのデフォルトゲートウェイを指定
+
+  bridge_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.35.0.0/24
