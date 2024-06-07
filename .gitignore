@@ -132,3 +132,4 @@ dist
 #original
 .ash_history
 *.js
+docker-compose.yml
