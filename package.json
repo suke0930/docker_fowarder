@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/node": "^20.14.2",
-    "node-pty": "^1.0.0"
+    "node-pty": "^1.0.0",
+    "prompt-sync": "^4.2.0"
   }
 }
