@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   ubuntu:
-    build:
-      context: ./docker
+    image: gcr.io/distroless/base-nossl-debian12:nonroot
+    command: /home/nonroot/infinite_loop_with_sleep
     container_name: ubuntu_macvlan
     #command: [ "tail", "-F", "/dev/null" ]
     volumes:
