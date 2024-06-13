@@ -55,7 +55,7 @@ function isValidIPAddress(ip: string): boolean {
 
 async function getIP(): Promise<string> {
     const ip = await question("ミラー先のIPは？");
-    if (!isValidIPAddress(ip)) {
+    if (!isValidIPAddress(ip) && ip != "host") {
         const osok = await question("これIPじゃないけど大丈夫そ?\n名前解決とかできるかわからんよ?(y/n): ");
         if (osok === "y") {
             return ip;
@@ -63,10 +63,14 @@ async function getIP(): Promise<string> {
             return getIP();
         }
     } else {
-        return ip;
+        if (ip === "host") {
+            return "172.35.0.1"
+        } else {
+            return ip;
+        }
     }
-}
 
+}
 async function getPort(msg: string): Promise<number> {
     const getit = await question(msg);
     if (getit.length <= 5) {
@@ -114,10 +118,24 @@ async function entry() {
                 }
                 break;
             case "rm":
+                const rmname = await question("削除したいエントリの名前は？: ");
+                if (rmname) {
+                    client.write(JSON.stringify({
+                        datatype: "rm",
+                        name: rmname,
+                    }));
+                    return true;
+                } else {
+                    console.log("名前入力されてなくない？");
+                    process.exit();
+                }
                 // 削除の処理をここに追加
                 break;
             case "list":
                 // リストの処理をここに追加
+                client.write(JSON.stringify({
+                    datatype: "list",
+                }));
                 break;
             default:
                 console.log("なにそれ～");
