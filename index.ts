@@ -71,7 +71,7 @@ class main {
                 command = "docker exec -it ubuntu_macvlan /home/nonroot/redir --lport=" + portdata.lport + " --cport=" + portdata.cport + " --caddr=" + portdata.ip + " ;exit"
             } else {
                 //UDPの場合
-                command = "docker exec -i ubuntu_macvlan /home/nonroot/uredir --lport=" + portdata.lport + " --cport=" + portdata.cport + " --caddr=" + portdata.ip + " ;exit"
+                command = "docker exec -i ubuntu_macvlan /home/nonroot/uredir -n :" + portdata.lport + " " + portdata.ip + ":" + portdata.cport + " ;exit";
             }
             const newspawn = pty.spawn(shellpreset, ["-c", command], {
                 name: '(' + portdata.name + ')suke_portfoward',
