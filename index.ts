@@ -316,7 +316,7 @@ class main {
                         if (data.name) {
                             const ishavename = await this.checkarr(data.name);
                             if (ishavename === -1) {
-                                if ((data.TCP) && (data.cport) && (data.lport) && (data.name) && (data.ip)) {
+                                if (data.TCP !== undefined && (data.cport) && (data.lport) && (data.name) && (data.ip)) {
                                     const tryadddata: portdata = {
                                         name: data.name,
                                         TCP: data.TCP,
